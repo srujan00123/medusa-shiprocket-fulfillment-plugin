@@ -1,236 +1,161 @@
-<h1 align="center">
-  <br>
-  <a href="http://www.shiprocket.in"><img src="https://i.postimg.cc/zGzTRdqp/id-Nga-I3rk-T-logos.png" alt="Markdownify" width="200"></a>
-  <br>
- for Medusa 2.0+
-  <br>
-</h1>
-
 <p align="center">
-    <img src="https://img.shields.io/npm/v/medusa-cashfree-payment-plugin" alt="medusa-cashfree-payment-plugin">
-    <img src="https://img.shields.io/npm/dw/medusa-cashfree-payment-plugin" alt="medusa-cashfree-payment-plugin">  
-    <img src="https://img.shields.io/github/contributors/SAM-AEL/medusa-cashfree-payment-plugin" alt="medusa-cashfree-payment-plugin">  
- <img src="https://img.shields.io/github/last-commit/SAM-AEL/medusa-cashfree-payment-plugin" alt="medusa-cashfree-payment-plugin">
-</p>
-  
-<h4 align="center">From checkout to doorstep — simplify logistics with <a href="https://www.shiprocket.in" target="_blank">Shiprocket</a> for Medusa.</h4>
-
-<p align="center">
-  <a href="#-features">Features</a> •
-  <a href="#%EF%B8%8F-installation">Installation</a> •
-  <a href="#-setup-guide">Setup Guide</a> •
-  <a href="#-api-reference">API Reference</a> •
-  <a href="#-troubleshooting">Troubleshooting</a> •
-  <a href="#-contributing">Contributing</a> •
-  <a href="#-license">License</a>
+  <a href="https://www.shiprocket.in">
+    <img src="https://custom-icon-badges.demolab.com/badge/Shiprocket-purple?style=for-the-badge&logo=package&logoColor=white" alt="Shiprocket Logo" height="50">
+  </a>
 </p>
 
-## ✨ Features
+<h1 align="center">Medusa Shiprocket Fulfillment Plugin</h1>
 
-- 🚚 **Seamless Shipping** - _Create and manage shipments directly from Medusa admin panel_
+<p align="center">
+  <strong>Seamless Logistics for Medusa v2 Stores in India 🇮🇳</strong>
+</p>
 
-- 💸 **Automated Rate Calculation** - _Fetch real-time courier rates at checkout_
+<p align="center">
+  <a href="https://www.npmjs.com/package/medusa-shiprocket-fulfillment-plugin">
+    <img src="https://img.shields.io/npm/v/medusa-shiprocket-fulfillment-plugin?color=blue&style=flat-square" alt="NPM Version">
+  </a>
+  <a href="https://www.npmjs.com/package/medusa-shiprocket-fulfillment-plugin">
+    <img src="https://img.shields.io/npm/dw/medusa-shiprocket-fulfillment-plugin?style=flat-square" alt="NPM Downloads">
+  </a>
+  <a href="https://github.com/SAM-AEL/medusa-shiprocket-fulfillment-plugin/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/SAM-AEL/medusa-shiprocket-fulfillment-plugin?style=flat-square" alt="License">
+  </a>
+</p>
 
-- ❌ **Easy Cancellations** - _Cancel shipments instantly from Medusa_
+<hr />
 
-- 📦 **Pickup Location Support** - _Configure and use multiple Shiprocket pickup points_
+## 🚀 Overview
 
-- 🌍 **India-first Logistics** - _Optimized for Indian e-commerce and Shiprocket’s courier network_
+The **Medusa Shiprocket Fulfillment Plugin** integrates [Shiprocket](https://www.shiprocket.in/), India's leading logistics aggregator, directly into your [Medusa](https://medusajs.com/) store. 
+
+Streamline your shipping operations by automating rate calculations, order creation, label generation, and returns—all from within the Medusa Admin.
+
+**Compatible with Medusa v2.0+**
+
+## ✨ Key Features
+
+| Feature | Description |
+| :--- | :--- |
+| **💵 Automated Rates** | Fetch real-time shipping rates at checkout based on pickup and delivery pin codes. |
+| **📦 Seamless Fulfillment** | Automatically create shipments in Shiprocket when you fulfill an order in Medusa. |
+| **📄 Document Generation** | Generate and retrieve **Shipping Labels**, **Manifests**, and **Invoices** directly. |
+| **↩️ Returns Management** | Handle return requests and generate reverse pickup shipments effortlessly. |
+| **🇮🇳 India-First** | Optimized for Indian addresses, GST compliance, and domestic courier networks. |
+| **🛑 Easy Cancellation** | Cancel shipments instantly from the Medusa Admin to void labels. |
 
 ## 📋 Prerequisites
 
-- [MedusaJS](https://docs.medusajs.com/) 2 store
+Before you begin, ensure you have:
 
-- [Shiprocket](https://www.shiprocket.in/) account
-
-## 🚧 To Do:
-
-- 💱 **Return Shipping** - _Initiate Refund and replacement directly through Admin Dashboard_
-
-- 🔗 **Webhooks integration** - _Stay updated with shipment updates in Admin Dashboard_
-
-- 🔎 **Live Tracking** - _Get shipment status and tracking updates without leaving Medusa Admin Dashboard_
-
-- 📚 **Label, Manifest and Invoice** - _Directly accessible in Medusa Admin_
-- **_Rewrite the plugin with more optimizations and code cleanup._**
+1.  A **[Medusa v2](https://docs.medusajs.com/)** server set up.
+2.  A **[Shiprocket](https://app.shiprocket.in/register)** account.
+3.  At least one **Pickup Location** configured in your Shiprocket dashboard.
 
 ## 🛠️ Installation
 
-#### Step 1: Install the Plugin
-
-Choose your preferred package manager:
+Install the plugin using your preferred package manager:
 
 ```bash
-
-# npm
-
-npm  install  medusa-shiprocket-fulfillment-plugin
-
-
-
-# yarn
-
-yarn  add  medusa-shiprocket-fulfillment-plugin
-
-
-
-# pnpm
-
-pnpm  add  medusa-shiprocket-fulfillment-plugin
-
+npm install medusa-shiprocket-fulfillment-plugin
+# or
+yarn add medusa-shiprocket-fulfillment-plugin
 ```
 
-#### Step 2: Configure Plugin
+## ⚙️ Configuration
 
-Add the plugin to your `medusa-config.js`:
+### 1. Environment Variables
+
+Add your Shiprocket credentials to your `.env` file. 
+
+> [!WARNING]
+> **Security Note**: Never commit your actual API passwords to version control (git).
+
+```bash
+SHIPROCKET_EMAIL="your_email@example.com"
+SHIPROCKET_PASSWORD="your_shiprocket_password"
+# Must match the 'Nickname' of a pickup location in your Shiprocket settings
+SHIPROCKET_PICKUP_LOCATION="Primary"
+```
+
+### 2. Medusa Config
+
+Register the plugin in your `medusa-config.js` (or `medusa-config.ts`) file. You need to add it to both the `modules` (for the fulfillment provider) and `plugins` (if you are using any admin widgets, though currently optional).
 
 ```javascript
 module.exports = defineConfig({
-
-  // other configs
-
+  // ... other config
   modules: [
-
-    // other plugins
-
     {
       resolve: "@medusajs/medusa/fulfillment",
       options: {
         providers: [
           {
-            resolve:
-              "medusa-shiprocket-fulfillment-plugin/providers/shiprocket",
+            resolve: "medusa-shiprocket-fulfillment-plugin",
             id: "shiprocket",
             options: {
               email: process.env.SHIPROCKET_EMAIL,
               password: process.env.SHIPROCKET_PASSWORD,
               pickup_location: process.env.SHIPROCKET_PICKUP_LOCATION,
+              /**
+               * Set "true" (string) to enable Cash on Delivery support.
+               * This maps the payment method 'cod' to Shiprocket's COD logic.
+               */
+              cod: "false", 
             },
           },
         ],
       },
     },
   ],
-  plugins: [
-    {
-      resolve: "medusa-shiprocket-fulfillment-plugin",
-      options: {
-        email: process.env.SHIPROCKET_EMAIL,
-        password: process.env.SHIPROCKET_PASSWORD,
-        pickup_location: process.env.SHIPROCKET_PICKUP_LOCATION,
-      },
-    },
-  ],
 });
 ```
 
-#### Step 3: Environment Variables
+## 💻 Usage Guide
 
-Create or update your `.env` file:
+### Enabling the Provider
 
-```env
+1.  Log in to your **Medusa Admin**.
+2.  Go to **Settings** → **Regions**.
+3.  Select the region you want to ship to (e.g., "India").
+4.  In the **Fulfillment Providers** section, edit and ensure `shiprocket` is selected.
+5.  Save changes.
 
-# Shiprocket Configuration
+### Shipping Options
 
-SHIPROCKET_EMAIL=your email
-SHIPROCKET_PASSWORD=password
-SHIPROCKET_PICKUP_LOCATION=Primary
+You can now create Shipping Options (e.g., "Standard Shipping") that use the **shiprocket** provider.
+-   **Calculated**: Choose "Calculated" price type to use Shiprocket's real-time rate API.
 
-```
+### Creating a Fulfillment (Shipment)
+When you fulfill an order in the Medusa Admin:
+1.  The plugin creates an order in Shiprocket.
+2.  It attempts to automatically assign an AWB (Air Waybill) using Shiprocket's "adhoc" API.
+3.  If successful, the **Tracking Number** and **Tracking URL** are saved to the fulfillment in Medusa.
 
-> ⚠️ **Security Note**: Never commit your production credentials to version control.
+## 🐛 Troubleshooting
 
-### ⚙️ Configuration Options
+### "Rate calculation failed"
+-   Ensure both the **Store Address** (Pickup) and **Customer Address** (Delivery) have valid 6-digit Indian pincodes.
+-   Check that the `weight` is set on your Product Variants (in grams or per your Shiprocket config). Shiprocket requires weight to calculate rates.
 
-| Option            | Type   | Required | Default | Description                                                                          |
-| ----------------- | ------ | -------- | ------- | ------------------------------------------------------------------------------------ |
-| `email`           | string | ✅       | -       | Your Shiprocket account email                                                        |
-| `password`        | string | ✅       | -       | Your Shiprocket account password                                                     |
-| `pickup_location` | string | ✅       | -       | The Shiprocket pickup location name (must match one created in Shiprocket dashboard) |
+### "Authentication failed"
+-   Double-check your `SHIPROCKET_EMAIL` and `SHIPROCKET_PASSWORD` in `.env`.
+-   The plugin auto-refreshes tokens, but invalid credentials will block this.
 
-### 🎯 Setup Guide
+## 🤝 Contributing
 
-### Enable Fulfillment Provider
+Contributions are welcome! If you find a bug or want to add a feature:
 
-1. Navigate to **Medusa Admin → Settings → Regions**
-2. Select your target region - India (or any region you want Shiprocket to serve).
-3. In **Fulfillment Providers**, select `shiprocket`.
-4. Click **Save Changes**.
+1.  Fork the repository.
+2.  Create a feature branch (`git checkout -b feature/amazing-feature`).
+3.  Commit your changes.
+4.  Open a Pull Request.
 
----
+## 📄 License
 
-### Configure Shiprocket Credentials
-
-1. Go to your [Shiprocket Dashboard](https://app.shiprocket.in/).
-2. Ensure you have:
-   - **Email** and **Password** of your Shiprocket account.
-   - At least one **Pickup Location** set up (e.g., `Primary`).
-3. Add credentials to your `.env` file:
-
-### 🔧 API Reference
-
-This plugin implements the complete `AbstractFulfillmentProvider` interface:
-
-#### Core Methods
-
-- `createFulfillment()` - Create a fulfillment in Shiprocket.
-- `cancelFulfillment()` - Cancel a fulfillment in Shiprocket.
-- `getFulfillmentDocuments()` - Retrieve labels, manifests, and invoices for a fulfillment.
-- `getTrackingInfo()` - Get tracking information for a shipment.
-
-#### Utility Methods
-
-- `calculateShippingRate()` - Calculate shipping rates for an order.
-- `createReturn()` - Create a return shipment in Shiprocket.
-- `generateLabel()` - Generate shipping label for a fulfillment.
-- `generateInvoice()` - Generate invoice for a fulfillment.
-
-### 🐛 Troubleshooting
-
-**_Plugin not appearing in admin_**
-
-- Follow the setup and reload the server.
-
-**_Admin UI Widget not working_**
-
-- Add the plugin to plugin import in medusa-config. reload the server.
-
-### Getting Help
-
-- 📖 [Shiprocket API Documentation](https://api.shiprocket.in/)
-
-- 💬 [MedusaJS Discord](https://discord.gg/medusajs)
-
-- 🐛 [Report Issues](https://github.com/SAM-AEL/medusa-shiprocket-fulfillment-plugin/issues)
-
-### 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-1. Fork the repository
-
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-
-4. Push to the branch (`git push origin feature/amazing-feature`)
-
-5. Open a Pull Request
-
-### 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-### 🙏 Acknowledgments
-
-- [MedusaJS](https://medusajs.com/) - for the best open-source e-commerce platform.
-
-- [Shiprocket](https://www.shiprocket.in/) - for making the life of a shipper easier.
+This project is licensed under the [MIT License](LICENSE).
 
 ---
 
-<h1 align="center">
-  <br> 
-  Thank you 🫶
-  <br>
-</h1>
+<p align="center">
+  Built with ❤️ by <a href="https://github.com/SAM-AEL">SAM-AEL</a>
+</p>
