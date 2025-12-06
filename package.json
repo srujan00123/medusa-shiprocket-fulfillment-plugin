@@ -1,6 +1,6 @@
 {
   "name": "medusa-shiprocket-fulfillment-plugin",
-  "version": "0.1.9",
+  "version": "0.1.8",
   "description": "Shiprocket Fulfillment Provider Plugin for MedusaJS 2",
   "author": "SAM-AEL",
   "homepage": "https://github.com/SAM-AEL",
@@ -15,7 +15,12 @@
     "./.medusa/server/src/modules/*": "./.medusa/server/src/modules/*/index.js",
     "./modules/*": "./.medusa/server/src/modules/*/index.js",
     "./providers/*": "./.medusa/server/src/providers/*/index.js",
-    "./*": "./.medusa/server/src/*.js"
+    "./*": "./.medusa/server/src/*.js",
+    "./admin": {
+      "import": "./.medusa/server/src/admin/index.mjs",
+      "require": "./.medusa/server/src/admin/index.js",
+      "default": "./.medusa/server/src/admin/index.js"
+    }
   },
   "keywords": [
     "medusa",

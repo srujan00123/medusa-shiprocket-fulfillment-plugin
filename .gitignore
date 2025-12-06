@@ -30,3 +30,5 @@ medusa-config.js
 Dockerfile
 medusa-db.sql
 develop.sh
+
+.yalc
