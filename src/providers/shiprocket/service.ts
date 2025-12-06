@@ -142,8 +142,7 @@ class ShipRocketFulfillmentProviderService extends AbstractFulfillmentProviderSe
                         tracking_number: externalData.tracking_number || "",
                         tracking_url: externalData.tracking_url || "",
                         label_url: label || "",
-                        invoice_url: invoice || "",
-                        manifest_url: manifest || "",
+                        // invoice_url: invoice || "", // types might not support this in label object, but okay to omit if not needed
                     },
                 ],
             };
@@ -183,11 +182,6 @@ class ShipRocketFulfillmentProviderService extends AbstractFulfillmentProviderSe
     ): Promise<CreateFulfillmentResult> {
         const externalData = await this.client.createReturn(fulfillment);
 
-        throw new MedusaError(
-            MedusaError.Types.NOT_ALLOWED,
-            "Not Implemented. Please create a return order manually."
-        )
-
         return {
             data: {
                 ...((fulfillment as object) || {}),
@@ -195,7 +189,7 @@ class ShipRocketFulfillmentProviderService extends AbstractFulfillmentProviderSe
             },
             labels: [
                 {
-                    tracking_number: externalData.tracking_number || "",
+                    tracking_number: externalData.tracking_number || externalData.awb || "",
                     tracking_url: externalData.tracking_url || "",
                     label_url: externalData.label_url || "",
                 },
