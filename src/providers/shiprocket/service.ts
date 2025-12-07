@@ -93,16 +93,34 @@ class ShipRocketFulfillmentProviderService extends AbstractFulfillmentProviderSe
         const params = {
             pickup_postcode: context["from_location"]?.address?.postal_code as string,
             delivery_postcode: context["shipping_address"]?.postal_code as string,
-            weight: (context["items"]?.[0]?.metadata?.weight) as number,
-            cod: (this.options_.cod !== "true") ? 0 : 1 as number,
+            weight: 0,
+            cod: (this.options_.cod === "true" || this.options_.cod === 1) ? 1 : 0 as number,
         };
+
+        // Calculate total weight
+        const items = (context["items"] || []) as any[];
+        let totalWeightGrams = 0;
+
+        for (const item of items) {
+            const quantity = item.quantity || 1;
+            // Medusa usually stores weight in grams. Shiprocket needs kg.
+            // Try variant weight first, then metadata, then default to 0
+            const itemWeight = (item.variant?.weight ?? item.metadata?.weight ?? 0);
+            totalWeightGrams += itemWeight * quantity;
+        }
+
+        // Convert to kg. If 0, default to 0.5kg to allow calculation to proceed (avoid blocking checkout for missing weights)
+        params.weight = totalWeightGrams > 0 ? totalWeightGrams / 1000 : 0.5;
+
+        // Ensure we have a valid pickup postcode. 
+        // Note: from_location depends on Stock Location being properly configured and linked in Medusa.
+        if (!params.pickup_postcode) {
+            this.logger_.warn("Shiprocket: Missing pickup_postcode. Ensure a Stock Location with an address is linked to the Sales Channel.");
+            // We can't proceed without it, shiprocket API will fail.
+        }
 
         if (!params.pickup_postcode || !params.delivery_postcode) {
             throw new Error("Both pickup and delivery postcodes are required for rate calculation.");
-        }
-
-        if (!params.weight) {
-            throw new Error("Weight is required for rate calculation.");
         }
 
         const price = await this.client.calculate(params);
